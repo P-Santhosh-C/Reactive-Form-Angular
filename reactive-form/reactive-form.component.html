@@ -1,0 +1,157 @@
+<form [formGroup]="myForm" (ngSubmit)="save()">
+    <div class="form-group">
+        <div class="form row justify-content-around">
+
+            <div class="form-group col-md-12">
+                <h3 style="text-align: center; margin: 2rem 0 2rem 0;">Reactive_Form</h3>
+                <hr>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="form-group">First Name</label>
+                <input class="form-control" placeholder="FirstName" type="text" id="firstname" name="firstName"
+                    formControlName='firstName' required>
+
+                <div *ngIf="myForm.controls['firstName'].hasError('required') && myForm.controls['firstName'].touched"
+                    class="alert alert-danger">
+                    <small>firstName is required</small>
+                </div>
+                <div *ngIf="myForm.controls['firstName'].hasError('minLength') && myForm.controls['firstName'].touched"
+                    class="alert alert-danger">
+                    <small>must have more then 5 characters</small>
+                </div>
+                <div *ngIf="myForm.controls['firstName'].hasError('maxLength') && myForm.controls['firstName'].touched"
+                    class="alert alert-danger">
+                    <small>must have more then 20 characters</small>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="form-group">Last Name</label>
+                <input class="form-control" placeholder="LastName" type="text" id="lastname" name="lastName"
+                    formControlName='lastName' required>
+
+                <div *ngIf="myForm.controls['lastName'].hasError('required') && myForm.controls['lastName'].touched"
+                    class="alert alert-danger">
+                    <small>LastName is required</small>
+                </div>
+                <div *ngIf="myForm.controls['lastName'].hasError('minLength') && myForm.controls['lastName'].touched"
+                    class="alert alert-danger">
+                    <small>LastName should be greater than 5 characters</small>
+                </div>
+                <div *ngIf="myForm.controls['lastName'].hasError('maxLength') && myForm.controls['lastName'].touched"
+                    class="alert alert-danger">
+                    <small>LastName should not be greater than 10 characters</small>
+                </div>
+            </div>
+
+            <div class="from-group col-md-6">
+                <label style="padding-right: 1rem;">Gender : </label>
+                <input type="radio" name="gender" value="male" required> Male
+                <input type="radio" name="gender" value="female" required> Female
+            </div>
+
+            <div class="from-group col-md-6">
+                <label style="margin-right: 0.5em;">Dob :</label>
+                <input type="date" name="dob" required formControlName='dob'
+                    [class.is-invalid]='myForm.errors?.lesserDate' />
+                <div *ngIf="myForm.errors?.lesserDate" class="alert alert-danger">
+                    only pastDate are accepted
+                </div>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label class="form-group">Email</label>
+                <input class="form-control" placeholder="email" type="text" id="email" name="email"
+                    formControlName='email' required>
+
+                <div *ngIf="myForm.controls['email'].hasError('required') && myForm.controls['email'].touched"
+                    class="alert alert-danger">
+                    <small>Email is required</small>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="form-group">password</label>
+                <input class="form-control" placeholder="password" type="text" id="password" name="password"
+                    formControlName='password' required>
+
+                <div *ngIf="myForm.controls['password'].hasError('required') && myForm.controls['password'].touched"
+                    class="alert alert-danger">
+                    <small>Password is required</small>
+                </div>
+                <div *ngIf="myForm.controls['password'].hasError('pattern') && myForm.controls['password'].touched"
+                    class="alert alert-danger">
+                    <small>Password must have one upper case, lower case, digit </small>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="form-group">Conform Password</label>
+                <input class="form-control" placeholder="confirm password" type="text" name="confirmPassword"
+                    formControlName='confirmPassword' required [class.is-invalid]='myForm.errors?.misMatch'>
+
+                <div *ngIf="myForm.errors?.misMatch" class="alert alert-danger">
+                    <small>confirm Password should match the previous password</small>
+                </div>
+                <div *ngIf="myForm.controls['password'].hasError('pattern') && myForm.controls['password'].touched"
+                    class="alert alert-danger">
+                    <small>Password must have one upper case, lower case, digit </small>
+                </div>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label class="form-group">Address</label>
+                <textarea class="form-control" placeholder="address" type="text" id="address" rows="3" name="address"
+                    formControlName='address' required></textarea>
+                <div *ngIf="myForm.controls['address'].hasError('required') && myForm.controls['address'].touched"
+                    class="alert alert-danger">
+                    <small>Address is required</small>
+                </div>
+                <div *ngIf="myForm.controls['address'].hasError('minLength') && myForm.controls['address'].touched"
+                    class="alert alert-danger">
+                    <small>Name should be greater than 10 characters</small>
+                </div>
+                <div *ngIf="myForm.controls['address'].hasError('maxLength') && myForm.controls['address'].touched"
+                    class="alert alert-danger">
+                    <small>Name should not be greater than 60 characters</small>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>State</label>
+                <select id="type" class="form-control" required>
+                    <option *ngFor="let e of state" [value]="e">{{e}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="form-group">Zip</label>
+                <input class="form-control" placeholder="zip" type="text" id="zip" name="zip" formControlName='zip'
+                    required>
+                <div *ngIf="myForm.controls['zip'].hasError('required') && myForm.controls['zip'].touched"
+                    class="alert alert-danger">
+                    <small>Zip is required</small>
+                </div>
+
+                <div *ngIf="myForm.controls['zip'].hasError('pattern') && myForm.controls['zip'].touched"
+                    class="alert alert-danger">
+                    <small>only 5 digits are accepted</small>
+                </div>
+
+            </div>
+
+            <div class="form-group col-md-12" style="padding-left: 3rem;">
+                <input class="form-check-input" type="checkbox" id="gridCheck" name="check" required>
+                <label class="form-check-label" for="gridCheck">
+                    terms and conditions
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-bottom: 2rem;"
+                [disabled]='myForm.invalid'>Submit</button>
+            <button type="reset" class="btn btn-danger" style="margin-bottom: 2rem; position: relative;">Reset</button>
+
+        </div>
+    </div>
+</form>
